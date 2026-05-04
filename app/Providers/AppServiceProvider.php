@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Support\ScentImages;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -21,6 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::share('brandImages', ScentImages::all());
+        // Removed ScentImages reference; no shared brandImages
     }
 }

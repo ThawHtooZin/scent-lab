@@ -11,7 +11,7 @@
     <div class="py-8 sm:py-10">
         <div class="mx-auto max-w-2xl sm:px-6 lg:px-8">
             <div class="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-                <form method="POST" action="{{ route('dashboard.products.update', $product) }}" class="space-y-5 p-6 sm:p-8">
+                <form method="POST" action="{{ route('dashboard.products.update', $product) }}" class="space-y-5 p-6 sm:p-8" enctype="multipart/form-data">
                     @method('PUT')
                     @include('dashboard.products._form')
                 </form>

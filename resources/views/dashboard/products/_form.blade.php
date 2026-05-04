@@ -34,9 +34,9 @@
         <x-input-error :messages="$errors->get('size')" class="mt-2" />
     </div>
     <div class="sm:col-span-2">
-        <x-input-label for="image_key" :value="__('Image key (config/scentlab.php)')" />
-        <x-text-input id="image_key" name="image_key" type="text" class="mt-1 block w-full font-mono text-sm" :value="old('image_key', optional($p)->image_key)" required placeholder="e.g. story_1" />
-        <x-input-error :messages="$errors->get('image_key')" class="mt-2" />
+        <x-input-label for="image" :value="__('Image Upload')" />
+        <x-text-input id="image" name="image" type="file" class="mt-1 block w-full font-mono text-sm" :value="old('image', optional($p)->image)" />
+        <x-input-error :messages="$errors->get('image')" class="mt-2" />
     </div>
     <div>
         <x-input-label for="top_note" :value="__('Top note')" />

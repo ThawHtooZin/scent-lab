@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price', 10, 2);
             $table->string('size')->default('100ML');
-            $table->string('image_key');
+            $table->string('image');
             $table->string('top_note')->nullable();
             $table->string('heart_note')->nullable();
             $table->string('base_note')->nullable();

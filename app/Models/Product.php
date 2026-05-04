@@ -13,7 +13,7 @@ class Product extends Model
         'description',
         'price',
         'size',
-        'image_key',
+        'image',
         'top_note',
         'heart_note',
         'base_note',

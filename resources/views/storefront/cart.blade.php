@@ -7,7 +7,7 @@
         <div class="space-y-3">
             @forelse ($items as $item)
                 <article class="flex flex-wrap items-start gap-4 border border-stone-200 bg-white p-4">
-                    <img src="{{ $brandImages[$item['product']->image_key] ?? $brandImages['hero'] }}" alt="{{ $item['product']->name }}" class="h-24 w-24 shrink-0 border border-stone-100 object-cover">
+                    <img src="/images/products/hero-bottle.jpg" alt="Hero bottle" class="h-24 w-24 shrink-0 border border-stone-100 object-cover">
                     <div class="min-w-0 flex-1">
                         <h3 class="text-xl font-medium">{{ $item['product']->name }}</h3>
                         <p class="text-sm text-stone-600">{{ $item['product']->subtitle }} | {{ $item['product']->size }}</p>

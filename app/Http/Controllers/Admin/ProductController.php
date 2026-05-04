@@ -27,6 +27,12 @@ class ProductController extends Controller
     {
         Product::create($this->validated($request));
 
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->handleImageUpload($request->file('image'));
+        }
+
+        Product::create($data);
+
         return redirect()->route('dashboard.products.index')->with('status', 'Product created.');
     }
 
@@ -39,6 +45,12 @@ class ProductController extends Controller
     {
         $product->update($this->validated($request, $product->id));
 
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->handleImageUpload($request->file('image'));
+        }
+
+        $product->update($data);
+
         return redirect()->route('dashboard.products.index')->with('status', 'Product updated.');
     }
 
@@ -47,6 +59,14 @@ class ProductController extends Controller
         $product->delete();
 
         return back()->with('status', 'Product deleted.');
+    }
+
+    private function handleImageUpload ($file): string 
+    {
+        $filename = time() . '-' . $file->getClientOriginalName();
+        $file->move(public_path('images/products'), $filename);
+
+        return $filename;
     }
 
     private function validated(Request $request, ?int $productId = null): array
@@ -58,7 +78,7 @@ class ProductController extends Controller
             'description' => ['required', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'size' => ['required', 'string', 'max:50'],
-            'image_key' => ['required', 'string', 'max:255'],
+            'image' => ['required', 'image', 'max:255'],
             'top_note' => ['nullable', 'string', 'max:255'],
             'heart_note' => ['nullable', 'string', 'max:255'],
             'base_note' => ['nullable', 'string', 'max:255'],

@@ -27,8 +27,7 @@
                 @foreach ($products as $product)
                     <div class="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm ring-1 ring-gray-900/5 transition hover:shadow-md">
                         <div class="relative aspect-[4/5] overflow-hidden bg-stone-100">
-                            <img src="{{ $brandImages[$product->image_key] ?? $brandImages['hero'] }}"
-                                alt="{{ $product->name }}"
+                            <img src="{{ '/images/products/' . $product->image }}" alt="Hero bottle"
                                 class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]">
                             @if ($product->is_featured)
                                 <span class="absolute left-3 top-3 rounded-full bg-amber-700/95 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white shadow">

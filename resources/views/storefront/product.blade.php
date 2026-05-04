@@ -3,7 +3,7 @@
 @section('content')
 <main class="px-5 py-8 md:px-12 md:pb-16">
     <section class="grid gap-10 md:grid-cols-[1.1fr_1fr] md:gap-10 lg:gap-12">
-        <img src="{{ $brandImages[$product->image_key] ?? $brandImages['hero'] }}" alt="{{ $product->name }}" class="max-h-[600px] w-full border border-stone-200 object-cover">
+        <img src="/images/products/hero-bottle.jpg" alt="Hero bottle" class="max-h-[600px] w-full border border-stone-200 object-cover">
         <div>
             <h1 class="text-5xl font-medium leading-none md:text-6xl lg:text-7xl">{{ $product->name }}</h1>
             <p class="my-3 text-2xl text-stone-600">${{ number_format($product->price, 2) }} — {{ $product->size }}</p>
@@ -29,7 +29,7 @@
     <section class="mt-10 grid gap-7 md:grid-cols-3">
         @foreach ($related as $item)
             <article>
-                <img src="{{ $brandImages[$item->image_key] ?? $brandImages['hero'] }}" alt="{{ $item->name }}" class="aspect-[4/5] w-full border border-stone-200 object-cover">
+                <img src="/images/products/upsell-1.png" alt="Related product" class="aspect-[4/5] w-full border border-stone-200 object-cover">
                 <h3 class="mt-2 text-2xl font-medium">{{ $item->name }}</h3>
                 <a href="{{ route('product.show', $item) }}" class="mt-2 inline-block text-[11px] uppercase tracking-[0.08em] underline">Explore Product</a>
             </article>
