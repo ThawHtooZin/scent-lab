@@ -17,34 +17,50 @@
                         href="{{ route('shop') }}">Explore Boutique</a>
                 </div>
             </div>
-            <img src="/images/scent-lab/hero-bottle.jpg" alt="Hero bottle" class="h-auto max-h-[520px] w-full object-scale-down">
+            <img src="/images/scent-lab/hero-bottle.jpg" alt="Hero bottle"
+                class="h-auto max-h-[520px] w-full object-scale-down">
         </section>
 
-        <section class="grid gap-5 px-4 pb-10 md:grid-cols-4 md:px-8">
+        <section class="grid gap-5 px-4 pb-10 md:grid-cols-3 lg:grid-cols-4 md:px-8">
             @foreach ($featured as $product)
-                <article class="p-3 border border-stone-200 rounded-lg">
-                    <img src="/images/products/{{ $product->image }}" alt="{{ $product->name }}"
-                        class="aspect-[4/5] w-full object-cover rounded-md">
-                    <h3 class="mt-2 text-lg font-medium md:text-xl">{{ $product->name }}</h3>
-                    <p class="text-sm text-stone-600">{{ $product->description }}</p>
-                    <a class="mt-2 inline-block bg-amber-700 px-3 py-2 text-[10px] uppercase tracking-[0.12em] text-white hover:bg-amber-800"
-                        href="{{ route('product.show', $product) }}">Discover</a>
+                <article class="p-3 border border-stone-200 rounded-lg flex flex-col justify-between">
+                    <div>
+                        <img src="/images/products/{{ $product->image }}" alt="{{ $product->name }}"
+                            class="aspect-[4/5] w-full object-cover rounded-md">
+                        <h3 class="mt-2 text-lg font-medium md:text-xl text-primary">{{ $product->name }}</h3>
+                        <p class="text-sm text-secondary">{{ $product->description }}</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 items-center gap-4 mt-4">
+                        <p class="text-[14px] font-semibold text-primary-dark whitespace-nowrap">
+                            {{ $product->price }} MMK
+                        </p>
+                        <a class="bg-amber-700 px-3 py-2 text-[10px] uppercase tracking-wider text-white text-center rounded-md transition-colors hover:bg-amber-800"
+                            href="{{ route('product.show', $product) }}">
+                            Discover
+                        </a>
+                    </div>
                 </article>
             @endforeach
         </section>
 
         <section
-            class="mt-8 flex flex-col items-start justify-between gap-8 bg-rose-100/80 px-5 py-10 md:flex-row md:items-center md:px-12"
+            class="mt-12 flex flex-col items-center justify-between gap-12 bg-rose-100/80 px-8 py-16 md:flex-row md:px-20"
             id="story">
-            <div>
-                <h2 class="text-3xl md:text-4xl"><em>Science of Happy.</em></h2>
-                <p class="mt-2 text-stone-600">Citrus and floral notes are tiny mood-shifters for your day.</p>
+            <div class="md:max-w-4xl">
+                <h2 class="text-3xl font-light leading-tight lg:text-6xl xl:text-8xl text-secondary">
+                    Science of Happy.
+                </h2>
+                <p class="mt-4 text-lg md:text-xl text-secondary-light leading-relaxed">
+                    Citrus and floral notes aren't just smells—they are bio-hacks for your brain. Explore how our olfactory blends boost mood and focus through botanical precision.
+                </p>
             </div>
-            <div class="flex gap-3">
-                <img src="/images/scent-lab/science-1.jpg" alt=""
-                    class="h-40 w-40 border border-stone-200 object-cover md:h-44 md:w-44">
-                <img src="/images/scent-lab/science-2.jpg" alt=""
-                    class="h-40 w-40 border border-stone-200 object-cover md:h-44 md:w-44">
+
+            <div class="flex gap-4 md:gap-6">
+                <img src="/images/scent-lab/science-1.jpg" alt="Scent details"
+                    class="h-48 w-40 rounded-xl border border-white/50 object-cover shadow-sm lg:h-64 lg:w-48 xl:h-96 xl:w-72">
+                <img src="/images/scent-lab/science-2.jpg" alt="Scent experience"
+                    class="h-48 w-40 rounded-xl border border-white/50 object-cover shadow-sm lg:h-64 lg:w-48 xl:h-96 xl:w-72 mt-8">
             </div>
         </section>
     </main>

@@ -60,12 +60,12 @@
 
     <footer
         class="mt-auto flex flex-col gap-4 border-t border-stone-200 bg-white px-5 py-8 md:flex-row md:items-center md:justify-between md:px-12">
-        <p class="text-lg italic text-stone-900">The Scent Lab</p>
+        <p class="text-lg italic text-primary">The Scent Lab</p>
         <div class="flex flex-wrap gap-5 text-[11px] uppercase tracking-[0.1em] text-stone-600">
-            <a href="#" class="hover:text-stone-900">Privacy Policy</a>
-            <a href="#" class="hover:text-stone-900">Shipping & Returns</a>
-            <a href="#" class="hover:text-stone-900">Sustainability</a>
-            <a href="#" class="hover:text-stone-900">Contact</a>
+            <a href="#" class="hover:text-primary">Privacy Policy</a>
+            <a href="#" class="hover:text-primary">Shipping & Returns</a>
+            <a href="#" class="hover:text-primary">Sustainability</a>
+            <a href="#" class="hover:text-primary">Contact</a>
         </div>
     </footer>
 </body>
