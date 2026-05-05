@@ -11,7 +11,7 @@ class StorefrontController extends Controller
     public function home(): View
     {
         $featured = Schema::hasTable('products')
-            ? Product::with('category')->where('is_featured', true)->orderBy('display_order')->orderBy('name')->take(3)->get()
+            ? Product::with('category')->where('is_featured', true)->orderBy('display_order')->orderBy('name')->take(4)->get()
             : collect();
 
         return view('storefront.home', compact('featured'));
@@ -19,11 +19,13 @@ class StorefrontController extends Controller
 
     public function shop(): View
     {
-        $products = Schema::hasTable('products')
-            ? Product::with('category')->orderBy('display_order')->orderBy('name')->get()
+        $categories = Schema::hasTable('categories') && Schema::hasTable('products')
+            ? Category::with(['products' => function ($query) {
+                $query->orderBy('display_order')->orderBy('name');
+            }])->orderBy('display_order')->get()
             : collect();
 
-        return view('storefront.shop', compact('products'));
+        return view('storefront.shop', compact('categories'));
     }
 
     public function show(Product $product): View

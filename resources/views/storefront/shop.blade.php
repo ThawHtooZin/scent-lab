@@ -2,28 +2,39 @@
 
 @section('content')
 <main class="px-5 py-8 md:px-12">
-    <h1 class="text-center text-3xl font-medium md:text-4xl">Shop collection drops</h1>
+    <h1 class="text-center text-3xl font-medium md:text-4xl mb-12">Shop Collection Drops</h1>
 
-    <section class="grid gap-5 pb-10 md:grid-cols-4">
-        @foreach ($products as $product)
-            <article class="p-3 border border-stone-200 rounded-lg">
-                @if ($product->image)
-                    <img src="/images/products/{{ $product->image }}" alt="Hero bottle" class="aspect-[4/5] w-full object-cover rounded-md">
-                @else
-                    <div class="aspect-[4/5] w-full rounded-md border border-stone-200 bg-stone-100"></div>
-                @endif
-                <p class="mt-2 text-[10px] uppercase tracking-[0.12em] text-stone-500">{{ optional($product->category)->collection_name ?? optional($product->category)->name ?? 'Uncategorized' }}</p>
-                <h3 class="mt-1 text-lg font-medium md:text-xl">{{ $product->name }}</h3>
-                <p class="text-sm text-stone-600">{{ $product->description }}</p>
-                <div class="mt-2 grid gap-2 sm:grid-cols-[auto_1fr] items-center">
-                    <div>
-                        <p class="text-sm text-stone-600">Stock: {{ $product->stock }}</p>
-                        <strong class="text-sm">${{ number_format($product->price, 2) }}</strong>
-                    </div>
-                    <a href="{{ route('product.show', $product) }}" class="text-[10px] uppercase tracking-[0.08em] text-stone-700 underline">Explore Product</a>
-                </div>
-            </article>
-        @endforeach
-    </section>
+    @foreach ($categories as $category)
+        <section class="mb-16">
+            <h2 class="text-2xl font-medium mb-8 text-center md:text-left">{{ $category->name }}</h2>
+
+            <div class="grid gap-5 md:grid-cols-3 lg:grid-cols-4">
+                @foreach ($category->products as $product)
+                    <article class="p-3 border border-stone-200 rounded-lg flex flex-col justify-between">
+                        <div>
+                            @if ($product->image)
+                                <img src="/images/products/{{ $product->image }}" alt="{{ $product->name }}"
+                                    class="aspect-[4/5] w-full object-cover rounded-md">
+                            @else
+                                <div class="aspect-[4/5] w-full rounded-md border border-stone-200 bg-stone-100"></div>
+                            @endif
+                            <h3 class="mt-2 text-lg font-medium md:text-xl text-primary">{{ $product->name }}</h3>
+                            <p class="text-sm text-secondary">{{ $product->description }}</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 items-center gap-4 mt-4">
+                            <p class="text-[14px] font-semibold text-primary-dark whitespace-nowrap">
+                                {{ $product->price }} MMK
+                            </p>
+                            <a class="bg-amber-700 px-3 py-2 text-[10px] uppercase tracking-wider text-white text-center rounded-md transition-colors hover:bg-amber-800"
+                                href="{{ route('product.show', $product) }}">
+                                Discover
+                            </a>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+    @endforeach
 </main>
 @endsection
