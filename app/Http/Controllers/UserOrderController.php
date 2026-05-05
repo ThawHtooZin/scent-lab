@@ -25,12 +25,8 @@ class UserOrderController extends Controller
             ]);
         }
 
-        // If we have a session email but no authenticated user, try to find/create user
         if (!$user && $sessionEmail) {
             $user = User::where('email', $sessionEmail)->first();
-            if ($user) {
-                Auth::login($user);
-            }
         }
 
         if (!$user) {
@@ -66,9 +62,8 @@ class UserOrderController extends Controller
             ]);
         }
 
-        // Store email in session and log them in
+        // Store email in session only; do not authenticate normal order visitors
         session(['order_email' => $email]);
-        Auth::login($user);
 
         return redirect($request->input('redirect_to', route('orders.index')));
     }

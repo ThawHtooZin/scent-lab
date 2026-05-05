@@ -40,15 +40,15 @@
                     class="w-5 absolute top-0 left-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             </a>
 
-            @auth
+            @if(auth()->check() && auth()->user()->is_admin)
                 <a href="{{ route('dashboard') }}"
                     class="relative py-1 transition-colors duration-300 hover:text-primary-dark group">
                     Dashboard
                     <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-primary-dark transition-all duration-300 group-hover:w-full"></span>
                 </a>
-            @endauth
+            @endif
 
-            @if(auth()->check() || session('order_email'))
+            @if(session('order_email'))
                 <a href="{{ route('orders.index') }}"
                     class="relative py-1 transition-colors duration-300 hover:text-primary-dark group">
                     Orders
