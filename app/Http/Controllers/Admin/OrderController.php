@@ -30,7 +30,19 @@ class OrderController extends Controller
             'status' => ['required', 'in:pending,processing,shipped,delivered,cancelled'],
         ]);
 
-        $order->update(['status' => $data['status']]);
+        $newStatus = $data['status'];
+        $oldStatus = $order->status;
+
+        $order->update(['status' => $newStatus]);
+
+        if ($oldStatus !== 'shipped' && $newStatus === 'shipped') {
+            foreach ($order->items as $item) {
+                $product = $item->product;
+                if ($product) {
+                    $product->decrement('stock', $item->quantity);
+                }
+            }
+        }
 
         return redirect()->route('dashboard.orders.show', $order)
             ->with('success', 'Order status updated successfully.');

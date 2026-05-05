@@ -7,36 +7,25 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserOrderController extends Controller
 {
     public function index(Request $request): View
     {
-        // Check if user is authenticated or has a session email
-        $user = auth()->user();
         $sessionEmail = session('order_email');
 
-        if (!$user && !$sessionEmail) {
+        if (! $sessionEmail) {
             return view('storefront.orders.index', [
                 'orders' => collect(),
-                'showModal' => true
+                'showModal' => true,
             ]);
         }
 
-        if (!$user && $sessionEmail) {
-            $user = User::where('email', $sessionEmail)->first();
-        }
-
-        if (!$user) {
-            return view('storefront.orders.index', [
-                'orders' => collect(),
-                'showModal' => true
-            ]);
-        }
-
-        $orders = $user->orders()->withCount('items')->orderByDesc('created_at')->get();
+        $orders = Order::where('email', $sessionEmail)
+            ->withCount('items')
+            ->orderByDesc('created_at')
+            ->get();
 
         return view('storefront.orders.index', compact('orders'));
     }
@@ -79,6 +68,8 @@ class UserOrderController extends Controller
 
     protected function authorizeOrder(Order $order): void
     {
-        abort_unless(auth()->id() === $order->user_id, 403);
+        $sessionEmail = session('order_email');
+
+        abort_unless($sessionEmail && $sessionEmail === $order->email, 403);
     }
 }
