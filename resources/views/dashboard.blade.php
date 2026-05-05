@@ -41,12 +41,26 @@
                         <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-amber-800">{{ __('New product') }}</h3>
                         <p class="mt-1 text-sm text-gray-500">{{ __('Add a fragrance with notes, price, and image key.') }}</p>
                     </a>
+                    <a href="{{ route('dashboard.categories.index') }}" class="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm ring-1 ring-gray-900/5 transition hover:shadow-md">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-stone-100 text-stone-700">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-amber-800">{{ __('Collections') }}</h3>
+                        <p class="mt-1 text-sm text-gray-500">{{ __('Manage storefront categories and collections.') }}</p>
+                    </a>
                     <a href="{{ route('dashboard.products.index') }}" class="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm ring-1 ring-gray-900/5 transition hover:shadow-md">
                         <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-stone-100 text-stone-700">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
                         </div>
-                        <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-amber-800">{{ __('Edit inventory') }}</h3>
-                        <p class="mt-1 text-sm text-gray-500">{{ __('Quick access to every SKU and badge.') }}</p>
+                        <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-amber-800">{{ __('Inventory') }}</h3>
+                        <p class="mt-1 text-sm text-gray-500">{{ __('Quick access to every SKU, price and stock.') }}</p>
+                    </a>
+                    <a href="{{ route('dashboard.orders.index') }}" class="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm ring-1 ring-gray-900/5 transition hover:shadow-md">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-stone-100 text-stone-700">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>
+                        </div>
+                        <h3 class="mt-4 font-semibold text-gray-900 group-hover:text-amber-800">{{ __('Orders') }}</h3>
+                        <p class="mt-1 text-sm text-gray-500">{{ __('View customer orders, delivery details and payment status.') }}</p>
                     </a>
                     <a href="{{ route('profile.edit') }}" class="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm ring-1 ring-gray-900/5 transition hover:shadow-md">
                         <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 text-gray-700">
@@ -60,9 +74,14 @@
                 <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-900/5">
                     <div class="p-8 text-center sm:p-12">
                         <p class="text-gray-600">{{ __("You're logged in!") }}</p>
-                        <a href="{{ route('home') }}" class="mt-4 inline-block text-sm font-medium text-amber-700 underline">
-                            {{ __('Back to the shop') }}
-                        </a>
+                        <div class="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                            <a href="{{ route('home') }}" class="inline-flex items-center rounded-md bg-amber-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-amber-700">
+                                {{ __('Back to the shop') }}
+                            </a>
+                            <a href="{{ route('orders.index') }}" class="inline-flex items-center rounded-md border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:border-gray-300">
+                                {{ __('View your orders') }}
+                            </a>
+                        </div>
                     </div>
                 </div>
             @endif

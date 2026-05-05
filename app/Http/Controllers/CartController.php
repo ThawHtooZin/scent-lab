@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+
+    public function checkout(Request $request, Product $product): RedirectResponse{
+        
+    }
+
     public function add(Request $request, Product $product): RedirectResponse
     {
         $quantity = max(1, (int) $request->integer('quantity', 1));

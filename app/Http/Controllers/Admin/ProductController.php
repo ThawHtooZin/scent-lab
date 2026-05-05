@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,12 +21,14 @@ class ProductController extends Controller
 
     public function create(): View
     {
-        return view('dashboard.products.create');
+        $categories = Category::orderBy('display_order')->get();
+
+        return view('dashboard.products.create', compact('categories'));
     }
 
     public function store(Request $request): RedirectResponse
     {
-        Product::create($this->validated($request));
+        $data = $this->validated($request);
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->handleImageUpload($request->file('image'));
@@ -38,12 +41,14 @@ class ProductController extends Controller
 
     public function edit(Product $product): View
     {
-        return view('dashboard.products.edit', compact('product'));
+        $categories = Category::orderBy('display_order')->get();
+
+        return view('dashboard.products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product): RedirectResponse
     {
-        $product->update($this->validated($request, $product->id));
+        $data = $this->validated($request, $product->id);
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->handleImageUpload($request->file('image'));
@@ -78,16 +83,19 @@ class ProductController extends Controller
             'description' => ['required', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'size' => ['required', 'string', 'max:50'],
-            'image' => ['required', 'image', 'max:255'],
+            'image' => [$productId ? 'nullable' : 'required', 'image'],
             'top_note' => ['nullable', 'string', 'max:255'],
             'heart_note' => ['nullable', 'string', 'max:255'],
             'base_note' => ['nullable', 'string', 'max:255'],
+            'category_id' => ['nullable', 'exists:categories,id'],
             'display_order' => ['required', 'integer', 'min:0'],
+            'stock' => ['required', 'integer', 'min:0'],
             'is_featured' => ['nullable', 'boolean'],
         ]);
 
         $data['slug'] = Str::slug($data['slug'] ?: $data['name']);
         $data['is_featured'] = (bool) ($data['is_featured'] ?? false);
+        $data['stock'] = (int) ($data['stock'] ?? 0);
 
         return $data;
     }

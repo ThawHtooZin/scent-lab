@@ -17,6 +17,16 @@
         <x-text-input id="subtitle" name="subtitle" type="text" class="mt-1 block w-full" :value="old('subtitle', optional($p)->subtitle)" />
         <x-input-error :messages="$errors->get('subtitle')" class="mt-2" />
     </div>
+    <div>
+        <x-input-label for="category_id" :value="__('Category')" />
+        <select id="category_id" name="category_id" class="mt-1 block w-full rounded border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-amber-500 focus:ring-amber-500">
+            <option value="">No category</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}" @selected(old('category_id', optional($p)->category_id) == $category->id)>{{ $category->name }}</option>
+            @endforeach
+        </select>
+        <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+    </div>
     <div class="sm:col-span-2">
         <x-input-label for="description" :value="__('Description')" />
         <textarea id="description" name="description" rows="4" required
@@ -32,6 +42,11 @@
         <x-input-label for="size" :value="__('Size')" />
         <x-text-input id="size" name="size" type="text" class="mt-1 block w-full" :value="old('size', optional($p)->size ?? '100ML')" required />
         <x-input-error :messages="$errors->get('size')" class="mt-2" />
+    </div>
+    <div>
+        <x-input-label for="stock" :value="__('Stock available')" />
+        <x-text-input id="stock" name="stock" type="number" min="0" class="mt-1 block w-full" :value="old('stock', optional($p)->stock ?? 0)" required />
+        <x-input-error :messages="$errors->get('stock')" class="mt-2" />
     </div>
     <div class="sm:col-span-2">
         <x-input-label for="image" :value="__('Image Upload')" />

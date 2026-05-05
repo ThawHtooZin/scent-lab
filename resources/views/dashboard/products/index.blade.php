@@ -39,6 +39,7 @@
                             <p class="text-[10px] font-semibold uppercase tracking-[0.15em] text-gray-400">{{ $product->subtitle }}</p>
                             <h3 class="mt-1 text-lg font-semibold text-gray-900">{{ $product->name }}</h3>
                             <p class="mt-2 text-2xl font-light text-amber-800">${{ number_format($product->price, 2) }}</p>
+                            <p class="mt-2 text-sm text-gray-500">Stock: {{ $product->stock }}</p>
                             <div class="mt-4 flex gap-2">
                                 <a href="{{ route('dashboard.products.edit', $product) }}"
                                     class="inline-flex flex-1 items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">

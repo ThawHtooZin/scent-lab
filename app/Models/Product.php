@@ -19,5 +19,12 @@ class Product extends Model
         'base_note',
         'is_featured',
         'display_order',
+        'stock',
+        'category_id',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

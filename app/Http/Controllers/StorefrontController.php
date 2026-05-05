@@ -11,7 +11,7 @@ class StorefrontController extends Controller
     public function home(): View
     {
         $featured = Schema::hasTable('products')
-            ? Product::query()->orderBy('display_order')->orderBy('name')->take(3)->get()
+            ? Product::with('category')->orderBy('display_order')->orderBy('name')->take(3)->get()
             : collect();
 
         return view('storefront.home', compact('featured'));
@@ -20,7 +20,7 @@ class StorefrontController extends Controller
     public function shop(): View
     {
         $products = Schema::hasTable('products')
-            ? Product::query()->orderBy('display_order')->orderBy('name')->get()
+            ? Product::with('category')->orderBy('display_order')->orderBy('name')->get()
             : collect();
 
         return view('storefront.shop', compact('products'));

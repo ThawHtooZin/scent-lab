@@ -8,17 +8,20 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="min-h-screen bg-stone-50 font-serif text-stone-800 antialiased">
-    <header
-        class="flex flex-wrap items-center justify-between gap-4 border-b border-stone-200 bg-white/90 px-5 py-4 md:px-12">
-        <a href="{{ route('home') }}" class="text-2xl italic md:text-3xl font-['Noto Serif'] text-primary">THE SCENT
-            LAB</a>
+<body class="flex flex-col min-h-screen bg-stone-50 font-serif text-stone-800 antialiased">
+    <!-- Header: shrink-0 ensures it keeps its height -->
+    <header class="shrink-0 flex flex-wrap items-center justify-between gap-4 border-b border-stone-200 bg-white/90 px-5 py-4 md:px-12">
+        <a href="{{ route('home') }}" class="text-2xl italic md:text-3xl font-['Noto Serif'] text-primary">
+            THE SCENT LAB
+        </a>
+        
         <nav class="flex flex-wrap items-center gap-5 text-[13px] uppercase tracking-[0.12em] text-secondary">
             @php
                 $links = [
                     ['route' => 'home', 'label' => 'Journal'],
                     ['route' => 'shop', 'label' => 'Shop'],
                     ['route' => 'home', 'label' => 'Our Story', 'hash' => '#story'],
+                    ['route' => 'orders.index', 'label' => 'Orders'],
                 ];
             @endphp
 
@@ -26,9 +29,7 @@
                 <a href="{{ route($link['route']) }}{{ $link['hash'] ?? '' }}"
                     class="relative py-1 transition-colors duration-300 hover:text-primary-dark group">
                     {{ $link['label'] }}
-                    <!-- Custom Underline -->
-                    <span
-                        class="absolute bottom-0 left-0 w-0 h-[1px] bg-primary-dark transition-all duration-300 group-hover:w-full"></span>
+                    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-primary-dark transition-all duration-300 group-hover:w-full"></span>
                 </a>
             @endforeach
 
@@ -44,22 +45,27 @@
                 <a href="{{ route('dashboard') }}"
                     class="relative py-1 transition-colors duration-300 hover:text-primary-dark group">
                     Dashboard
-                    <span
-                        class="absolute bottom-0 left-0 w-0 h-[1px] bg-primary-dark transition-all duration-300 group-hover:w-full"></span>
+                    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-primary-dark transition-all duration-300 group-hover:w-full"></span>
                 </a>
             @endauth
         </nav>
     </header>
 
     @if (session('status'))
-        <p class="mx-5 mt-2 rounded border border-green-200 bg-green-50 px-3 py-2 text-sm md:mx-12">{{ session('status') }}
-        </p>
+        <div class="shrink-0 px-5 md:px-12 mt-2">
+            <p class="rounded border border-green-200 bg-green-50 px-3 py-2 text-sm">
+                {{ session('status') }}
+            </p>
+        </div>
     @endif
 
-    @yield('content')
+    <!-- Main Content: flex-grow expands to fill all available space -->
+    <main class="flex-grow">
+        @yield('content')
+    </main>
 
-    <footer
-        class="mt-auto flex flex-col gap-4 border-t border-stone-200 bg-white px-5 py-8 md:flex-row md:items-center md:justify-between md:px-12">
+    <!-- Footer: shrink-0 keeps it at its natural size at the bottom -->
+    <footer class="shrink-0 flex flex-col gap-4 border-t border-stone-200 bg-white px-5 py-8 md:flex-row md:items-center md:justify-between md:px-12">
         <p class="text-lg italic text-primary">The Scent Lab</p>
         <div class="flex flex-wrap gap-5 text-[11px] uppercase tracking-[0.1em] text-stone-600">
             <a href="#" class="hover:text-primary">Privacy Policy</a>
