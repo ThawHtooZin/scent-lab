@@ -15,6 +15,7 @@ Route::get('/shop', [StorefrontController::class, 'shop'])->name('shop');
 Route::get('/shop/{product:slug}', [StorefrontController::class, 'show'])->name('product.show');
 Route::get('/cart', [StorefrontController::class, 'cart'])->name('cart');
 Route::get('/orders', [UserOrderController::class, 'index'])->name('orders.index');
+Route::post('/orders', [UserOrderController::class, 'storeEmail'])->name('orders.store');
 Route::get('/orders/{order}', [UserOrderController::class, 'show'])->name('orders.show');
 
 Route::post('/cart/{product}', [CartController::class, 'add'])->name('cart.add');

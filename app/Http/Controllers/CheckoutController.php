@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
-use App\Models\OrderItem;
-use App\Models\Product;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class CheckoutController extends Controller
 {
@@ -75,8 +71,19 @@ class CheckoutController extends Controller
         $tax = $subtotal * 0.08;
         $total = $subtotal + $tax;
 
+        // Find or create user based on email
+        $user = User::where('email', $data['email'])->first();
+        if (!$user) {
+            $user = User::create([
+                'name' => $data['customer_name'],
+                'email' => $data['email'],
+                'password' => Hash::make(uniqid()), // Random password
+                'is_admin' => false,
+            ]);
+        }
+
         $order = Order::create([
-            'user_id' => $request->user()?->id,
+            'user_id' => $user->id,
             'customer_name' => $data['customer_name'],
             'email' => $data['email'],
             'phone' => $data['phone'],

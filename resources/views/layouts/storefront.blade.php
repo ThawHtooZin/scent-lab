@@ -21,7 +21,6 @@
                     ['route' => 'home', 'label' => 'Journal'],
                     ['route' => 'shop', 'label' => 'Shop'],
                     ['route' => 'home', 'label' => 'Our Story', 'hash' => '#story'],
-                    ['route' => 'orders.index', 'label' => 'Orders'],
                 ];
             @endphp
 
@@ -48,6 +47,14 @@
                     <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-primary-dark transition-all duration-300 group-hover:w-full"></span>
                 </a>
             @endauth
+
+            @if(auth()->check() || session('order_email'))
+                <a href="{{ route('orders.index') }}"
+                    class="relative py-1 transition-colors duration-300 hover:text-primary-dark group">
+                    Orders
+                    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-primary-dark transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            @endif
         </nav>
     </header>
 

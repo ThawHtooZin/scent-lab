@@ -7,7 +7,7 @@
             <h1 class="text-3xl font-semibold">Order #{{ $order->id }}</h1>
             <p class="mt-1 text-sm text-gray-600">Placed {{ $order->created_at->format('M j, Y \a\t g:i A') }}</p>
         </div>
-        <a href="{{ route('orders.index', ['email' => $email]) }}" class="text-sm font-medium text-amber-700 hover:text-amber-800">Back to your orders</a>
+        <a href="{{ route('orders.index') }}" class="text-sm font-medium text-amber-700 hover:text-amber-800">Back to your orders</a>
     </div>
 
     <div class="mt-8 grid gap-6 lg:grid-cols-[1.4fr_0.9fr]">
