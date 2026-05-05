@@ -70,7 +70,7 @@ class UserOrderController extends Controller
         session(['order_email' => $email]);
         Auth::login($user);
 
-        return redirect()->route('orders.index');
+        return redirect($request->input('redirect_to', route('orders.index')));
     }
 
     public function show(Order $order): View

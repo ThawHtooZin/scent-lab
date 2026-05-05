@@ -49,17 +49,46 @@ class CheckoutController extends Controller
         }
 
         $data = $request->validate([
-            'customer_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
-            'phone' => ['required', 'string', 'max:50'],
-            'address_line1' => ['required', 'string', 'max:255'],
+            'customer_name' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'address_line1' => ['nullable', 'string', 'max:255'],
             'address_line2' => ['nullable', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'state' => ['required', 'string', 'max:255'],
-            'postal_code' => ['required', 'string', 'max:40'],
-            'country' => ['required', 'string', 'max:255'],
-            'payment_method' => ['required', 'string', 'in:cod,stripe,bank_transfer'],
+            'city' => ['nullable', 'string', 'max:255'],
+            'state' => ['nullable', 'string', 'max:255'],
+            'postal_code' => ['nullable', 'string', 'max:40'],
+            'country' => ['nullable', 'string', 'max:255'],
+            'payment_method' => ['nullable', 'string', 'in:cod,stripe,bank_transfer'],
         ]);
+
+        $checkoutEmail = $data['email'] ?? session('order_email');
+        $data['email'] = $checkoutEmail ?: '';
+        $data['customer_name'] = $data['customer_name'] ?? '';
+        $data['phone'] = $data['phone'] ?? '';
+        $data['address_line1'] = $data['address_line1'] ?? '';
+        $data['city'] = $data['city'] ?? '';
+        $data['state'] = $data['state'] ?? '';
+        $data['postal_code'] = $data['postal_code'] ?? '';
+        $data['country'] = $data['country'] ?? '';
+        $data['payment_method'] = $data['payment_method'] ?? 'cod';
+
+        if ($checkoutEmail && ! session('order_email')) {
+            session(['order_email' => $checkoutEmail]);
+        }
+
+        $user = null;
+        if (! empty($checkoutEmail)) {
+            $user = User::where('email', $checkoutEmail)->first();
+            if (! $user) {
+                $user = User::create([
+                    'name' => $data['customer_name'] ?: explode('@', $checkoutEmail)[0],
+                    'email' => $checkoutEmail,
+                    'password' => Hash::make(uniqid()),
+                    'is_admin' => false,
+                ]);
+            }
+        }
+
 
         $products = Product::whereIn('id', array_keys($cart))->get();
 
@@ -89,7 +118,7 @@ class CheckoutController extends Controller
         }
 
         $order = Order::create([
-            'user_id' => $user->id,
+            'user_id' => $user?->id,
             'customer_name' => $data['customer_name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
@@ -118,6 +147,6 @@ class CheckoutController extends Controller
 
         session()->forget('cart');
 
-        return redirect()->route('home')->with('status', 'Thank you! Your order has been placed successfully. Cash on delivery is selected for now.');
+        return redirect()->route('orders.index')->with('status', 'Thank you! Your order has been placed successfully. Cash on delivery is selected for now.');
     }
 }

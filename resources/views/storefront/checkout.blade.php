@@ -11,13 +11,13 @@
                 <div class="grid gap-4 sm:grid-cols-2">
                     <label class="block">
                         <span class="text-sm font-medium text-stone-700">Full name</span>
-                        <input type="text" name="customer_name" value="{{ old('customer_name') }}" required
+                        <input type="text" name="customer_name" value="{{ old('customer_name') }}"
                             class="mt-1 block w-full rounded border border-stone-200 bg-stone-50 px-3 py-2 text-sm">
                         <x-input-error :messages="$errors->get('customer_name')" class="mt-1" />
                     </label>
                     <label class="block">
                         <span class="text-sm font-medium text-stone-700">Email</span>
-                        <input type="email" name="email" value="{{ old('email') }}" required
+                        <input type="email" name="email" value="{{ old('email', session('order_email')) }}"
                             class="mt-1 block w-full rounded border border-stone-200 bg-stone-50 px-3 py-2 text-sm">
                         <x-input-error :messages="$errors->get('email')" class="mt-1" />
                     </label>
@@ -26,13 +26,13 @@
                 <div class="grid gap-4 sm:grid-cols-2">
                     <label class="block">
                         <span class="text-sm font-medium text-stone-700">Phone</span>
-                        <input type="text" name="phone" value="{{ old('phone') }}" required
+                        <input type="text" name="phone" value="{{ old('phone') }}"
                             class="mt-1 block w-full rounded border border-stone-200 bg-stone-50 px-3 py-2 text-sm">
                         <x-input-error :messages="$errors->get('phone')" class="mt-1" />
                     </label>
                     <label class="block">
                         <span class="text-sm font-medium text-stone-700">Country</span>
-                        <input type="text" name="country" value="{{ old('country') }}" required
+                        <input type="text" name="country" value="{{ old('country') }}"
                             class="mt-1 block w-full rounded border border-stone-200 bg-stone-50 px-3 py-2 text-sm">
                         <x-input-error :messages="$errors->get('country')" class="mt-1" />
                     </label>
@@ -40,7 +40,7 @@
 
                 <label class="block">
                     <span class="text-sm font-medium text-stone-700">Address line 1</span>
-                    <input type="text" name="address_line1" value="{{ old('address_line1') }}" required
+                    <input type="text" name="address_line1" value="{{ old('address_line1') }}"
                         class="mt-1 block w-full rounded border border-stone-200 bg-stone-50 px-3 py-2 text-sm">
                     <x-input-error :messages="$errors->get('address_line1')" class="mt-1" />
                 </label>
@@ -54,19 +54,19 @@
                 <div class="grid gap-4 sm:grid-cols-3">
                     <label class="block">
                         <span class="text-sm font-medium text-stone-700">City</span>
-                        <input type="text" name="city" value="{{ old('city') }}" required
+                        <input type="text" name="city" value="{{ old('city') }}"
                             class="mt-1 block w-full rounded border border-stone-200 bg-stone-50 px-3 py-2 text-sm">
                         <x-input-error :messages="$errors->get('city')" class="mt-1" />
                     </label>
                     <label class="block">
                         <span class="text-sm font-medium text-stone-700">State</span>
-                        <input type="text" name="state" value="{{ old('state') }}" required
+                        <input type="text" name="state" value="{{ old('state') }}"
                             class="mt-1 block w-full rounded border border-stone-200 bg-stone-50 px-3 py-2 text-sm">
                         <x-input-error :messages="$errors->get('state')" class="mt-1" />
                     </label>
                     <label class="block">
                         <span class="text-sm font-medium text-stone-700">Postal code</span>
-                        <input type="text" name="postal_code" value="{{ old('postal_code') }}" required
+                        <input type="text" name="postal_code" value="{{ old('postal_code') }}"
                             class="mt-1 block w-full rounded border border-stone-200 bg-stone-50 px-3 py-2 text-sm">
                         <x-input-error :messages="$errors->get('postal_code')" class="mt-1" />
                     </label>
