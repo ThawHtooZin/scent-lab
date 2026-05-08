@@ -18,8 +18,9 @@
         <nav class="flex flex-wrap items-center gap-5 text-[13px] uppercase tracking-[0.12em] text-secondary">
             @php
                 $links = [
-                    ['route' => 'home', 'label' => 'Journal'],
+                    ['route' => 'home', 'label' => 'Home'],
                     ['route' => 'shop', 'label' => 'Shop'],
+                    ['route' => 'scent-match.create', 'label' => 'Scent Match'],
                     ['route' => 'home', 'label' => 'Our Story', 'hash' => '#story'],
                 ];
             @endphp

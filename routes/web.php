@@ -7,11 +7,15 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScentMatchController;
 use App\Http\Controllers\StorefrontController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [StorefrontController::class, 'home'])->name('home');
 Route::get('/shop', [StorefrontController::class, 'shop'])->name('shop');
+Route::get('/scent-match', [ScentMatchController::class, 'create'])->name('scent-match.create');
+Route::post('/scent-match', [ScentMatchController::class, 'store'])->name('scent-match.store');
+Route::get('/scent-match/{scentMatch}', [ScentMatchController::class, 'show'])->name('scent-match.show');
 Route::get('/shop/{product:slug}', [StorefrontController::class, 'show'])->name('product.show');
 Route::get('/cart', [StorefrontController::class, 'cart'])->name('cart');
 Route::get('/orders', [UserOrderController::class, 'index'])->name('orders.index');
