@@ -7,6 +7,15 @@
         scroll-behavior: smooth;
     }
 
+    body.preload [data-page-shell] {
+        opacity: 0;
+        transform: translateY(26px) scale(0.995);
+    }
+
+    body.page-ready [data-page-shell] {
+        animation: pageLiftIn 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
     body * {
         transition-property: color, background-color, border-color, box-shadow, transform, opacity;
         transition-duration: 220ms;
@@ -40,24 +49,69 @@
 }
 
 @layer utilities {
-    .fade-up {
-        opacity: 0;
-        transform: translateY(14px);
+    .page-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: grid;
+        place-items: center;
+        background: rgba(250, 249, 246, 0.92);
+        backdrop-filter: blur(3px);
+        transition: opacity 320ms ease, visibility 320ms ease;
     }
 
-    .fade-up.in-view {
-        animation: fadeUp 520ms ease forwards;
+    .page-loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .page-loader-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 9999px;
+        background: #b8860b;
+        animation: pulseDot 850ms ease-in-out infinite alternate;
+    }
+
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(26px) scale(0.985);
+        filter: blur(3px);
+        will-change: transform, opacity, filter;
+        transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+            transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+            filter 600ms ease;
+        transition-delay: var(--reveal-delay, 0ms);
+    }
+
+    .reveal-on-scroll.in-view {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 
-@keyframes fadeUp {
+@keyframes pageLiftIn {
     from {
         opacity: 0;
-        transform: translateY(14px);
+        transform: translateY(26px) scale(0.995);
     }
 
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes pulseDot {
+    from {
+        transform: scale(0.8);
+        opacity: 0.55;
+    }
+
+    to {
+        transform: scale(1.2);
+        opacity: 1;
     }
 }

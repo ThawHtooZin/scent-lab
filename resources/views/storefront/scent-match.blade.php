@@ -20,11 +20,19 @@
 
             <div class="mb-6">
                 <div class="flex items-center justify-between text-[11px] uppercase tracking-[0.14em] text-stone-500">
-                    <span>Question <span x-text="step"></span> of <span x-text="totalSteps"></span></span>
-                    <span x-text="Math.round((step / totalSteps) * 100) + '%'"></span>
+                    <span>Step <span x-text="step"></span> of <span x-text="totalSteps"></span></span>
+                    <span><span x-text="totalSteps - step"></span> steps left</span>
                 </div>
-                <div class="mt-2 h-2 overflow-hidden rounded-full bg-stone-100">
-                    <div class="h-full rounded-full bg-gradient-to-r from-amber-500 to-primary transition-all duration-500" :style="`width:${(step / totalSteps) * 100}%`"></div>
+                <div class="mt-3 grid grid-cols-7 gap-2">
+                    <template x-for="index in totalSteps" :key="index">
+                        <div class="h-2 rounded-full transition-all duration-500"
+                            :class="index < step
+                                ? 'bg-primary'
+                                : index === step
+                                    ? 'bg-gradient-to-r from-amber-500 to-primary'
+                                    : 'bg-stone-200'">
+                        </div>
+                    </template>
                 </div>
             </div>
 

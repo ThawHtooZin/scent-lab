@@ -8,7 +8,12 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="flex flex-col min-h-screen bg-stone-50 font-serif text-stone-800 antialiased">
+<body class="preload flex min-h-screen flex-col bg-stone-50 font-serif text-stone-800 antialiased">
+    <div data-page-loader class="page-loader" aria-hidden="true">
+        <div class="page-loader-dot"></div>
+    </div>
+
+    <div data-page-shell class="flex min-h-screen flex-col">
     <!-- Header: shrink-0 ensures it keeps its height -->
     <header class="shrink-0 flex flex-wrap items-center justify-between gap-4 border-b border-stone-200 bg-white/90 px-5 py-4 md:px-12">
         <a href="{{ route('home') }}" class="text-2xl italic md:text-3xl font-['Noto Serif'] text-primary">
@@ -82,6 +87,7 @@
             <a href="#" class="hover:text-primary">Contact</a>
         </div>
     </footer>
+    </div>
 </body>
 
 </html>
